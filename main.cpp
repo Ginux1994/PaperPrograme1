@@ -241,10 +241,10 @@ double modulus(Array1D<double>& X, Array1D<double>& niu){
 	double d = X[3];
 	double temp_length = sqrt(x1*x1 + x2*x2 + x3*x3);
 
-	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3 + d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
-	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 + d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
+	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3 * d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
+	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 * d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
 	double A2 = sqrt(x1*x1 + x2*x2) * temp_A2;
-	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3 + d*d)) - temp_length / (M_PI*d*d);
+	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3 * d*d)) - temp_length / (M_PI*d*d);
 
 	double A0 = (A2 + sqrt(A2*A2 - 4.0*A1*A3)) / A1;
 
@@ -263,33 +263,34 @@ Array1D<double> delta_modulus(Array1D<double>& X, Array1D<double>& niu){
 	double d = X[3];
 	double temp_length = sqrt(x1*x1 + x2*x2 + x3*x3);
 
-	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3 + d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
-	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 + d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
+	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3 * d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
+	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 * d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
 	double A2 = sqrt(x1*x1 + x2*x2) * temp_A2;
-	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3 + d*d)) - temp_length / (M_PI*d*d);
+	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3 * d*d)) - temp_length / (M_PI*d*d);
 
 	double A0 = (A2 + sqrt(A2*A2 - 4.0*A1*A3)) / A1;
 	//计算A1对x1,x2,x3,d的偏导
-	double delta_A1_1 = 8.0*(2.0*x1*temp_length + x1*(x1*x1 + x2*x2) / temp_length) / (M_PI * (x3*x3 + d*d)) + 8.0*x1*temp_length / (M_PI*d*d*d*d);
-	double delta_A1_2 = 8.0*(2.0*x2*temp_length + x2*(x1*x1 + x2*x2) / temp_length) / (M_PI * (x3*x3 + d*d)) + 8.0*x2*temp_length / (M_PI*d*d*d*d);
-	double delta_A1_3 = 8.0*(x1*x1 + x2*x2)*(x3*(x3*x3 + d*d) / temp_length - 2.0*x3*temp_length) / (M_PI * (x3*x3 + d*d)) + 8.0*x3*temp_length / (M_PI*d*d*d*d);
-//	double delta_A1_d = - 16.0*(x1*x1 + x2*x2)*temp_length*d / (M_PI*(x3*x3 + d*d)*(x3*x3 + d*d)) - 32.0*(x1*x1 + x2*x2)*temp_length / (3.0*M_PI*d*d*d*d*d);
-	double delta_A1_d = -16.0*(x1*x1 + x2*x2)*temp_length*d / (M_PI*(x3*x3 + d*d)*(x3*x3 + d*d)) - 32.0* pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d*d);
+	double delta_A1_1 = 8.0*(2.0*x1*temp_length + x1*(x1*x1 + x2*x2) / temp_length) / (M_PI * (x3*x3 * d*d)) + 8.0*x1*temp_length / (M_PI*d*d*d*d);
+	double delta_A1_2 = 8.0*(2.0*x2*temp_length + x2*(x1*x1 + x2*x2) / temp_length) / (M_PI * (x3*x3 * d*d)) + 8.0*x2*temp_length / (M_PI*d*d*d*d);
+	double delta_A1_3 = 8.0*(x1*x1 + x2*x2)*(-x3*x3 - 2 * (x1*x1 + x2*x2))/(M_PI*d*d*x3*x3*temp_length) + 8.0*x3*temp_length / (M_PI*d*d*d*d);
+//	double delta_A1_d = - 16.0*(x1*x1 + x2*x2)*temp_length*d / (M_PI*(x3*x3 * d*d)*(x3*x3 * d*d)) - 32.0*(x1*x1 + x2*x2)*temp_length / (3.0*M_PI*d*d*d*d*d);
+	double delta_A1_d = -16.0*(x1*x1 + x2*x2)*temp_length / (M_PI*x3*x3 * d*d*d) - 32.0* pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d*d);
 	//计算A2对x1,x2,x3,d的偏导
-	double temp_delta_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 + d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
+	double temp_delta_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 * d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
 	//改动delta_A2_1， / sqrt(x1*x1 + x2*x2)
-	double delta_A2_1 = x1*temp_delta_A2 / sqrt(x1*x1 + x2*x2) + sqrt(x1*x1 + x2*x2)*(8.0*x1 / M_PI / (x3*x3 + d*d) + 8.0*x1 / (3.0*M_PI*d*d*d*d));
-	double delta_A2_2 = x2*temp_delta_A2 / sqrt(x1*x1 + x2*x2) + sqrt(x1*x1 + x2*x2)*(8.0*x2 / M_PI / (x3*x3 + d*d) + 8.0*x2 / (3.0*M_PI*d*d*d*d));
+	double delta_A2_1 = x1*temp_delta_A2 / sqrt(x1*x1 + x2*x2) + sqrt(x1*x1 + x2*x2)*(8.0*x1 / M_PI / (x3*x3 * d*d) + 8.0*x1 / (3.0*M_PI*d*d*d*d));
+	double delta_A2_2 = x2*temp_delta_A2 / sqrt(x1*x1 + x2*x2) + sqrt(x1*x1 + x2*x2)*(8.0*x2 / M_PI / (x3*x3 * d*d) + 8.0*x2 / (3.0*M_PI*d*d*d*d));
 
-	double delta_A2_3 = sqrt(x1*x1 + x2*x2)*(8.0*x3 / (3.0*M_PI*d*d*d*d) - 8.0*x3 *(x1*x1 + x2*x2) / (x3*x3 + d*d)*(x3*x3 + d*d));
-	double delta_A2_d = - 2.0*d*sqrt(x1*x1 + x2*x2)*4.0*(x1*x1 + x2*x2) / (M_PI*(x3*x3 + d*d)*(x3*x3 + d*d)) - 4.0*d*sqrt(x1*x1 + x2*x2)* 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d*d);
+	double delta_A2_3 = sqrt(x1*x1 + x2*x2)*(8.0 *(x1*x1 + x2*x2) / (x3*x3*x3 * d*d) - 8.0*x3 / (3.0*M_PI*d*d*d*d));
+	double delta_A2_d = 2.0*sqrt(x1*x1 + x2*x2)*4.0*(x1*x1 + x2*x2) / (M_PI*(x3*x3 * d*d*d)) - 4.0*d*sqrt(x1*x1 + x2*x2)* 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d*d);
 	//计算A3对x1,x2,x3,d的偏导
-	double delta_A3_1 = 1.5*x1*temp_length / (M_PI * (x3*x3 + d*d)) - x1 / (M_PI*d*d*temp_length);
-	double delta_A3_2 = 1.5*x2*temp_length / (M_PI * (x3*x3 + d*d)) - x2 / (M_PI*d*d*temp_length);
+	double temp_length2 = pow(x1*x1 + x2*x2 + x3*x3, 1.5);
+	double delta_A3_1 = 1.5*x1*temp_length2 / (M_PI * (x3*x3 * d*d)) - x1 / (M_PI*d*d*temp_length);
+	double delta_A3_2 = 1.5*x2*temp_length2 / (M_PI * (x3*x3 * d*d)) - x2 / (M_PI*d*d*temp_length);
 	//少了一对（）
-	double delta_A3_3 = (1.5*x3*temp_length*(x3*x3 + d*d) - 2.0*x3*pow(x1*x1 + x2*x2 + x3*x3, 1.5)) / (M_PI * (x3*x3 + d*d) * (x3*x3 + d*d)) - x3 / (M_PI*d*d*temp_length);
+	double delta_A3_3 = (3.0*x3*x3*temp_length* - 2.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5)) / (2*M_PI * (x3*x3*x3 * d*d)) - x3 / (M_PI*d*d*temp_length);
 	//少了个d
-	double delta_A3_d = - d*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (M_PI * (x3*x3 + d*d) * (x3*x3 + d*d)) + 2.0*temp_length / (M_PI*d*d*d);
+	double delta_A3_d = - pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (M_PI * (x3*x3 * d*d*d) ) + 2.0*temp_length / (M_PI*d*d*d);
 
 
 
@@ -349,12 +350,12 @@ double plastic_strength(Array1D<double>& X, Array1D<double>& niu){
 
 
 	double temp_length = sqrt(x1*x1 + x2*x2 + x3*x3);
-	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3 + d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
+	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3*d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
 	cout << "A1 = " << A1 << endl;
-	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 + d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
+	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3*d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
 	cout << "temp_A2 = " << temp_A2 << endl;
 	double A2 = sqrt(x1*x1 + x2*x2) * temp_A2;
-	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3 + d*d)) - temp_length / (M_PI*d*d);
+	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3*d*d)) - temp_length / (M_PI*d*d);
 	cout << "A3 = " << A3 << endl;
 
 	double A0 = (A2 + sqrt(A2*A2 - 4.0*A1*A3)) / A1;
@@ -375,34 +376,35 @@ Array1D<double> delta_plastic_strength(Array1D<double>& X, Array1D<double>& niu)
 	double d = X[3];
 
 	double temp_length = sqrt(x1*x1 + x2*x2 + x3*x3);
-	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3 + d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
-	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 + d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
+	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3 * d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
+	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 * d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
 	double A2 = sqrt(x1*x1 + x2*x2) * temp_A2;
-	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3 + d*d)) - temp_length / (M_PI*d*d);
+	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3 * d*d)) - temp_length / (M_PI*d*d);
 
 	double A0 = (A2 + sqrt(A2*A2 - 4.0*A1*A3)) / A1;
 
 	//计算A1对x1,x2,x3,d的偏导
-	double delta_A1_1 = 8.0*(2.0*x1*temp_length + x1*(x1*x1 + x2*x2) / temp_length) / (M_PI * (x3*x3 + d*d)) + 8.0*x1*temp_length / (M_PI*d*d*d*d);
-	double delta_A1_2 = 8.0*(2.0*x2*temp_length + x2*(x1*x1 + x2*x2) / temp_length) / (M_PI * (x3*x3 + d*d)) + 8.0*x2*temp_length / (M_PI*d*d*d*d);
-	double delta_A1_3 = 8.0*(x1*x1 + x2*x2)*(x3*(x3*x3 + d*d) / temp_length - 2.0*x3*temp_length) / (M_PI * (x3*x3 + d*d)) + 8.0*x3*temp_length / (M_PI*d*d*d*d);
-	//	double delta_A1_d = - 16.0*(x1*x1 + x2*x2)*temp_length*d / (M_PI*(x3*x3 + d*d)*(x3*x3 + d*d)) - 32.0*(x1*x1 + x2*x2)*temp_length / (3.0*M_PI*d*d*d*d*d);
-	double delta_A1_d = -16.0*(x1*x1 + x2*x2)*temp_length*d / (M_PI*(x3*x3 + d*d)*(x3*x3 + d*d)) - 32.0* pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d*d);
+	double delta_A1_1 = 8.0*(2.0*x1*temp_length + x1*(x1*x1 + x2*x2) / temp_length) / (M_PI * (x3*x3 * d*d)) + 8.0*x1*temp_length / (M_PI*d*d*d*d);
+	double delta_A1_2 = 8.0*(2.0*x2*temp_length + x2*(x1*x1 + x2*x2) / temp_length) / (M_PI * (x3*x3 * d*d)) + 8.0*x2*temp_length / (M_PI*d*d*d*d);
+	double delta_A1_3 = 8.0*(x1*x1 + x2*x2)*(-x3*x3 - 2 * (x1*x1 + x2*x2)) / (M_PI*d*d*x3*x3*temp_length) + 8.0*x3*temp_length / (M_PI*d*d*d*d);
+	//	double delta_A1_d = - 16.0*(x1*x1 + x2*x2)*temp_length*d / (M_PI*(x3*x3 * d*d)*(x3*x3 * d*d)) - 32.0*(x1*x1 + x2*x2)*temp_length / (3.0*M_PI*d*d*d*d*d);
+	double delta_A1_d = -16.0*(x1*x1 + x2*x2)*temp_length / (M_PI*x3*x3 * d*d*d) - 32.0* pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d*d);
 	//计算A2对x1,x2,x3,d的偏导
-	double temp_delta_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 + d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
+	double temp_delta_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 * d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
 	//改动delta_A2_1， / sqrt(x1*x1 + x2*x2)
-	double delta_A2_1 = x1*temp_delta_A2 / sqrt(x1*x1 + x2*x2) + sqrt(x1*x1 + x2*x2)*(8.0*x1 / M_PI / (x3*x3 + d*d) + 8.0*x1 / (3.0*M_PI*d*d*d*d));
-	double delta_A2_2 = x2*temp_delta_A2 / sqrt(x1*x1 + x2*x2) + sqrt(x1*x1 + x2*x2)*(8.0*x2 / M_PI / (x3*x3 + d*d) + 8.0*x2 / (3.0*M_PI*d*d*d*d));
+	double delta_A2_1 = x1*temp_delta_A2 / sqrt(x1*x1 + x2*x2) + sqrt(x1*x1 + x2*x2)*(8.0*x1 / M_PI / (x3*x3 * d*d) + 8.0*x1 / (3.0*M_PI*d*d*d*d));
+	double delta_A2_2 = x2*temp_delta_A2 / sqrt(x1*x1 + x2*x2) + sqrt(x1*x1 + x2*x2)*(8.0*x2 / M_PI / (x3*x3 * d*d) + 8.0*x2 / (3.0*M_PI*d*d*d*d));
 
-	double delta_A2_3 = sqrt(x1*x1 + x2*x2)*(8.0*x3 / (3.0*M_PI*d*d*d*d) - 8.0*x3 *(x1*x1 + x2*x2) / (x3*x3 + d*d)*(x3*x3 + d*d));
-	double delta_A2_d = -2.0*d*sqrt(x1*x1 + x2*x2)*4.0*(x1*x1 + x2*x2) / (M_PI*(x3*x3 + d*d)*(x3*x3 + d*d)) - 4.0*d*sqrt(x1*x1 + x2*x2)* 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d*d);
+	double delta_A2_3 = sqrt(x1*x1 + x2*x2)*(8.0 *(x1*x1 + x2*x2) / (x3*x3*x3 * d*d) - 8.0*x3 / (3.0*M_PI*d*d*d*d));
+	double delta_A2_d = 2.0*sqrt(x1*x1 + x2*x2)*4.0*(x1*x1 + x2*x2) / (M_PI*(x3*x3 * d*d*d)) - 4.0*d*sqrt(x1*x1 + x2*x2)* 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d*d);
 	//计算A3对x1,x2,x3,d的偏导
-	double delta_A3_1 = 1.5*x1*temp_length / (M_PI * (x3*x3 + d*d)) - x1 / (M_PI*d*d*temp_length);
-	double delta_A3_2 = 1.5*x2*temp_length / (M_PI * (x3*x3 + d*d)) - x2 / (M_PI*d*d*temp_length);
+	double temp_length2 = pow(x1*x1 + x2*x2 + x3*x3, 1.5);
+	double delta_A3_1 = 1.5*x1*temp_length2 / (M_PI * (x3*x3 * d*d)) - x1 / (M_PI*d*d*temp_length);
+	double delta_A3_2 = 1.5*x2*temp_length2 / (M_PI * (x3*x3 * d*d)) - x2 / (M_PI*d*d*temp_length);
 	//少了一对（）
-	double delta_A3_3 = (1.5*x3*temp_length*(x3*x3 + d*d) - 2.0*x3*pow(x1*x1 + x2*x2 + x3*x3, 1.5)) / (M_PI * (x3*x3 + d*d) * (x3*x3 + d*d)) - x3 / (M_PI*d*d*temp_length);
+	double delta_A3_3 = (3.0*x3*x3*temp_length* -2.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5)) / (2 * M_PI * (x3*x3*x3 * d*d)) - x3 / (M_PI*d*d*temp_length);
 	//少了个d
-	double delta_A3_d = -d*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (M_PI * (x3*x3 + d*d) * (x3*x3 + d*d)) + 2.0*temp_length / (M_PI*d*d*d);
+	double delta_A3_d = -pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (M_PI * (x3*x3 * d*d*d)) + 2.0*temp_length / (M_PI*d*d*d);
 
 
 
@@ -467,34 +469,13 @@ Array1D<double> delta_evaluate_Func(Array1D<double>& x){
 
 int main(){
 	Array1D<double> x(4, 0.0);
-	x[0] = 1.3;
-	x[1] = 1.8;
-	x[2] = 2.2;
-	x[3] = 0.2;
+	x[0] = 1.5;
+	x[1] = 2.0;
+	x[2] = 2.5;
+	x[3] = 0.4;
 
 //	Gradient gra(evaluate_Func,delta_evaluate_Func);
 //	cout<<gra.Vsolve(x);
-	double x1 = 1.5;
-	double x2 = 2;
-	double x3 = 2.5;
-	double d = 0.4;
-
-
-
-	double temp_length = sqrt(x1*x1 + x2*x2 + x3*x3);
-	double A1 = 8.0*(x1*x1 + x2*x2)*temp_length / M_PI / (x3*x3 + d*d) + 8.0*pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (3.0*M_PI*d*d*d*d);
-	cout << "A1 = " << A1 << endl;
-	double temp_A2 = 4.0*(x1*x1 + x2*x2) / M_PI / (x3*x3 + d*d) + 4.0*(x1*x1 + x2*x2 + x3*x3) / (3.0*M_PI*d*d*d*d);
-	cout << "temp_A2 = " << temp_A2 << endl;
-	double A2 = sqrt(x1*x1 + x2*x2) * temp_A2;
-	double A3 = pow(x1*x1 + x2*x2 + x3*x3, 1.5) / (2.0*M_PI * (x3*x3 + d*d)) - temp_length / (M_PI*d*d);
-	cout << "A3 = " << A3 << endl;
-
-	double A0 = (A2 + sqrt(A2*A2 - 4.0*A1*A3)) / A1;
-
-	cout << "******计算塑性强度*******\n";
-	cout << "A0 = " << A0 << endl;
-
 
 
 	Array1D<double> niu1(7, 0.0);
